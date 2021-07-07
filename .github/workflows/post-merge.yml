@@ -14,4 +14,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - run: mvn verify javadoc:javadoc coveralls:report -Pcoverage -B -V
+      - run: mvn verify javadoc:javadoc -Pcoverage -B -V
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
