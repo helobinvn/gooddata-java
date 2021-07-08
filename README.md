@@ -105,3 +105,4 @@ For releasing see [Releasing How-To](https://github.com/gooddata/gooddata-java/w
 
 Found a bug? Please create an [issue](https://github.com/gooddata/gooddata-java/issues). Missing functionality?
 [Contribute your code](CONTRIBUTING.md). Any questions about GoodData or this library? Check out [the GoodData community website](http://community.gooddata.com/).
+bacd
