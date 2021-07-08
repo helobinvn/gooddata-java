@@ -1,4 +1,4 @@
-name: post-merge
+name: pre-merge
 on:
   pull_request:
     branches:
