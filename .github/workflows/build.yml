@@ -30,12 +30,6 @@ jobs:
           echo "::set-output name=branch_name::${BRANCH_NAME_OR_REF#refs/heads/}"
           echo "::set-output name=pr_number::$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")"
       - name: Run build steps and generate coverage report
-        env:
-          CI_NAME: Github
-          CI_BUILD_NUMBER: ${{ github.run_id }}
-          CI_BUILD_URL: https://github.com/${{ github.repository }}/commit/${{ github.event.after }}/checks
-          CI_BRANCH: ${{ steps.refs.outputs.branch_name }}
-          CI_PULL_REQUEST: ${{ steps.refs.outputs.pr_number }}
         run: |
           mvn verify javadoc:javadoc jacoco:report -Pcoverage -B -V
       - name: Check overage in codecov
