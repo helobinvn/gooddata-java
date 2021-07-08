@@ -1,5 +1,5 @@
 # GoodData Java SDK
-![Build Status](https://github.com/helobinvn/gooddata-java/actions/workflows/pre-merge.yml/badge.svg)
+![Build Status](https://github.com/helobinvn/gooddata-java/actions/workflows/pre-merge.yml/badge.svg?branch=master)
 [![Javadocs](http://javadoc.io/badge/com.gooddata/gooddata-java.svg)](http://javadoc.io/doc/com.gooddata/gooddata-java)
 [![Javadocs Model](https://javadoc.io/badge2/com.gooddata/gooddata-java-model/javadoc--model.svg)](https://javadoc.io/doc/com.gooddata/gooddata-java-model)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.gooddata/gooddata-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.gooddata/gooddata-java)
