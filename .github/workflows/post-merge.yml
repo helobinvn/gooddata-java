@@ -4,7 +4,7 @@ on:
     branches:
       - master
       - /\d\.0\.0-RC/
-  workflow_dispatch
+  workflow_dispatch:
 jobs:
   tests-coverage:
     runs-on: ubuntu-16.04
