@@ -14,6 +14,16 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - run: mvn verify javadoc:javadoc coveralls:report -Pcoverage -DrepoToken=${COVERALLS_REPO_TOKEN} -B -V
+      - run: echo "::set-env name=BRANCH_NAME::${BRANCH_NAME_OR_REF#refs/heads/}"
+        env:
+          BRANCH_NAME_OR_REF: ${{ github.head_ref || github.ref }}
+      - run: |
+          echo "::set-env name=PR_NUMBER::$(jq --raw-output .pull_request.number $GITHUB_EVENT_PATH)"
+      - run: |
+          mvn verify javadoc:javadoc coveralls:report -Pcoverage -DrepoToken=${COVERALLS_REPO_TOKEN} -B -V \
+          -D serviceName=github \
+          -D serviceBuildUrl=https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks \
+          -D branch=$BRANCH_NAME \
+           -D pullRequest=$PR_NUMBER
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
