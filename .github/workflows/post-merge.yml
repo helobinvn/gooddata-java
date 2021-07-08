@@ -1,9 +1,9 @@
 name: post-merge
 on:
-#  push:
-#    branches:
-#      - master
-#      - /\d\.0\.0-RC/
+  pull_request:
+    branches:
+      - master
+      - /\d\.0\.0-RC/
   workflow_dispatch
 jobs:
   tests-coverage:
