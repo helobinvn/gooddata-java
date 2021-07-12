@@ -29,7 +29,7 @@ jobs:
         run: |
           echo "::set-output name=branch_name::${BRANCH_NAME_OR_REF#refs/heads/}"
           echo "::set-output name=pr_number::$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")"
-      - name: Run build steps and check coverage
+      - name: Run build steps and generate coverage report
         env:
           CI_NAME: Github
           CI_BUILD_NUMBER: ${{ github.run_id }}
@@ -37,15 +37,9 @@ jobs:
           CI_BRANCH: ${{ steps.refs.outputs.branch_name }}
           CI_PULL_REQUEST: ${{ steps.refs.outputs.pr_number }}
         run: |
-          mvn verify javadoc:javadoc coveralls:report -Pcoverage -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }} -B -V
-        if: ${{ github.event_name == 'push' }}
-      - name: Run build steps only
-        env:
-          CI_NAME: Github
-          CI_BUILD_NUMBER: ${{ github.run_id }}
-          CI_BUILD_URL: https://github.com/${{ github.repository }}/commit/${{ github.event.after }}/checks
-          CI_BRANCH: ${{ steps.refs.outputs.branch_name }}
-          CI_PULL_REQUEST: ${{ steps.refs.outputs.pr_number }}
-        run: |
-          mvn verify javadoc:javadoc -Pcoverage -B -V
-        if: ${{ github.event_name != 'push' }}
+          mvn verify javadoc:javadoc jacoco:report -Pcoverage -B -V
+      - name: Check overage in codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./**/target/site/jacoco/jacoco.xml
+          name: codecov
